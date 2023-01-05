@@ -17,7 +17,8 @@ from django.contrib import admin
 from django.urls import path
 from chatBotApp import views
 
+app_name = 'chatBotApp'
+#urls.py(views.pyの関数を探す)
 urlpatterns = [
-    path('admin/', admin.site.urls),
     path('',views.index),
 ]
