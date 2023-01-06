@@ -11398,6 +11398,7 @@ header.masthead {
   background-attachment: scroll;
   background-size: cover;
 }
+
 header.masthead h1, header.masthead .h1 {
   font-size: 2.25rem;
 }
@@ -11417,6 +11418,38 @@ header.masthead h1, header.masthead .h1 {
 }
 @media (min-width: 1200px) {
   header.masthead h1, header.masthead .h1 {
+    font-size: 3.5rem;
+  }
+}
+
+header.mastbody {
+  padding-top: 10rem;
+  padding-bottom: calc(10rem - 4.5rem);
+  background: linear-gradient(to bottom, rgba(92, 77, 66, 0.8) 0%, rgba(92, 77, 66, 0.8) 100%), url("../assets/img/bg-mastbody.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-size: cover;
+}
+header.mastbody h1, header.mastbody .h1 {
+  font-size: 2.25rem;
+}
+@media (min-width: 992px) {
+  header.mastbody {
+    height: 100vh;
+    min-height: 40rem;
+    padding-top: 4.5rem;
+    padding-bottom: 0;
+  }
+  header.mastbody p {
+    font-size: 1.15rem;
+  }
+  header.mastbody h1, header.mastbody .h1 {
+    font-size: 3rem;
+  }
+}
+@media (min-width: 1200px) {
+  header.mastbody h1, header.mastbody .h1 {
     font-size: 3.5rem;
   }
 }
@@ -11456,3 +11489,16 @@ header.masthead h1, header.masthead .h1 {
 #portfolio .container-fluid .portfolio-box:hover .portfolio-box-caption, #portfolio .container-sm .portfolio-box:hover .portfolio-box-caption, #portfolio .container-md .portfolio-box:hover .portfolio-box-caption, #portfolio .container-lg .portfolio-box:hover .portfolio-box-caption, #portfolio .container-xl .portfolio-box:hover .portfolio-box-caption, #portfolio .container-xxl .portfolio-box:hover .portfolio-box-caption {
   opacity: 1;
 }
+
+.log-window {
+  height: 400px;
+  width: 800px;
+  overflow: auto;
+  background-color: white;
+  
+}
+
+.chat-text-color {
+  color: black; 
+}
+

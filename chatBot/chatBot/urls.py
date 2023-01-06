@@ -21,4 +21,5 @@ app_name = 'chatBotApp'
 #urls.py(views.pyの関数を探す)
 urlpatterns = [
     path('',views.index),
+    path('chatBot',views.goChatBot),
 ]

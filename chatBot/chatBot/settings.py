@@ -11,7 +11,8 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
-
+from . import languages
+import my_settings
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -20,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-&&im%*7vvf$w#0q78trwfm955!$9f=z8(6v65fihl#%*kcrp=2'
+#SECRET_KEY = 'django-insecure-&&im%*7vvf$w#0q78trwfm955!$9f=z8(6v65fihl#%*kcrp=2'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -39,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'bootstrap4',
     'chatBotApp',
+    'chatterbot.ext.django_chatterbot', # 追記
 ]
 
 MIDDLEWARE = [
@@ -75,16 +77,19 @@ WSGI_APPLICATION = 'chatBot.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-
+#DATABASES = {
+    #'default': {
+   #     'ENGINE': 'django.db.backends.sqlite3',
+  #      'NAME': BASE_DIR / 'db.sqlite3',
+ #   }
+#}
+#
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
+
+DATABASES=my_settings.DATABASES
+SECRET_KEY= my_settings.SECRET_KEY
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -118,6 +123,23 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+# チャットボットの応答が見つからなかった場合の応答
+default_response = [
+        'すいません、分かりません。',
+        'それに対する応答は学習されていないので答えられません。',
+]
+CHATTERBOT = {
+        'name': 'DjangoBot', # チャットボットの名前
+         'logic_adapters': [ # ロジックアダプターの設定
+            {
+                'import_path': 'chatterbot.logic.BestMatch',
+                'default_response': default_response,
+            }
+        ],
+        'tagger_language': languages.JPN, 
+}
 
 
 # Default primary key field type
