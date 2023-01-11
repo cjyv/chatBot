@@ -6,10 +6,11 @@ from django.db import models
 class Contact(models.Model):
     seq = models.AutoField(primary_key=True)
     name = models.CharField(max_length=20)
-    mail = models.CharField(max_length=30)
-    phone = models.IntegerField()
+    email = models.CharField(max_length=30)
+    phone = models.CharField(max_length=30)
     comment = models.CharField(max_length=300)
 
     class Meta:
         managed = False
         db_table = 'contact'
+

@@ -39,8 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'bootstrap4',
+    'rest_framework',
     'chatBotApp',
     'chatterbot.ext.django_chatterbot', # 追記
+    
 ]
 
 MIDDLEWARE = [

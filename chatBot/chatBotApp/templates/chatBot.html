@@ -24,6 +24,7 @@
         <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
             <div class="container px-4 px-lg-5">
                 <a class="navbar-brand" href="/">ChatBot</a>
+              
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             </div>
         </nav>
@@ -36,11 +37,12 @@
            
         </div>
         
-            <form class="chatInput">
+            <form class="chatInput" action="{% url 'bot_response' %}" method="POST">
+                {% csrf_token %}
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" aria-describedby="button-addon2">
+                    <input type="text" class="form-control input_text" name="input_text" aria-describedby="button-addon2">
                     <div class="input-group-append">
-                      <button class="btn btn-secondary" type="button" id="button-addon2">Button</button>
+                      <button class="btn btn-secondary" type="submit" id="button-addon2">Button</button>
                     </div>
                   </div>
                   
@@ -62,5 +64,49 @@
         <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
         <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
         <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+         <!-- jQuery -->
+         <script>
+            var $input = $('.input_text'); // inputタグ内のクラス名
+            var $chatlog = $('.chat-log'); // 結果を追加していくためのdivタグ内のクラス名
+    
+            // ユーザーのログを追加する関数
+            function createRow_user(text) {
+                var $row = $('<p></p>');
+                $row.text(text);
+                $chatlog.append($row);
+            }
+    
+            // ボットのログを追加する関数
+            function createRow_bot(text) {
+                var $row = $('<p></p><br>');
+                $row.text(text);
+                $chatlog.append($row);
+            }
+            // HTMLフォームの情報を設定する
+            $('form').submit(function(event) {
+                event.preventDefault();
+                var form = $(this);
+    
+                // HTMLフォームの情報を設定する
+                $.ajax({
+                    url: form.prop('action'), // 非同期通信するURL（/bot_response/）
+                    type: form.prop('method'), // POST
+                    data: form.serialize(), // データの情報
+                    dataType: 'text', // データのタイプ
+                })
+                .done(function(statement) {
+                    createRow_user('ユーザー => ' + $input.val()); // ユーザーのログを追加
+                    createRow_bot(statement); // ボットのログを追加
+                    $input.val(''); // input内の要素を空にする
+                    $chatlog[0].scrollTop = $chatlog[0].scrollHeight;
+                })
+                // 送信に失敗した場合
+                .fail(function() {
+                    window.alert('もう一度やり直してください'); 
+                });
+            });
+        
+    </script>
     </body>
 </html>
